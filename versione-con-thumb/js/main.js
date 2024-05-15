@@ -71,27 +71,31 @@ images.forEach((_, i) => {
     thumbs.append(div);
     div.append(img);
 
-
-
     if (i === 0) {
-        document.getElementById(`img-${currentImageId}`).classList.add('active')
+        div.classList.add('active');
     }
 });
 
 // Events
 const itemList = document.querySelectorAll('.item');
+const thumbList = document.querySelectorAll('.thumb');
+
 
 prev.addEventListener('click', () => {
 
     if (currentImageId > 0) {
         itemList[currentImageId].classList.remove('active')
+        thumbList[currentImageId].classList.remove('active')
         currentImageId--;
         itemList[currentImageId].classList.add('active')
+        thumbList[currentImageId].classList.add('active')
 
     } else {
         itemList[currentImageId].classList.remove('active')
+        thumbList[currentImageId].classList.remove('active')
         currentImageId = itemList.length - 1;
         itemList[currentImageId].classList.add('active')
+        thumbList[currentImageId].classList.add('active')
     }
 });
 
@@ -99,14 +103,22 @@ next.addEventListener('click', () => {
 
     if (currentImageId < itemList.length - 1) {
         itemList[currentImageId].classList.remove('active')
+        thumbList[currentImageId].classList.remove('active')
         currentImageId++;
         itemList[currentImageId].classList.add('active')
+        thumbList[currentImageId].classList.add('active')
 
     } else {
         itemList[currentImageId].classList.remove('active')
+        thumbList[currentImageId].classList.remove('active')
         currentImageId = 0;
         itemList[currentImageId].classList.add('active')
+        thumbList[currentImageId].classList.add('active')
     }
 });
+
+thumbs.addEventListener('click', e => {
+    console.log(e.target);
+})
 
 
