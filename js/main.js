@@ -23,36 +23,70 @@ const images = [
         text: 'Marvel\'s Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.',
     }
 ];
-
+let currentImageId = 0;
 const items = document.querySelector('.items');
 const prev = document.querySelector('.prev');
 const next = document.querySelector('.next');
-const div = document.querySelector('.item');
+
 
 images.forEach((_, i) => {
     const game = images[i];
 
     const div = document.createElement('div');
     const img = document.createElement('img');
-
-    img.src = game.image;
-
-    items.append(div);
-    div.append(img);
-    div.classList.add('item');
-});
-
-prev.addEventListener('click', () => {
-
-    div.classList.add('active');
     const h3 = document.createElement('h3');
     const p = document.createElement('p');
 
-    images.forEach((_, i) => {
-        h3.innerText = images[i].title;
-        p.innerText = images[i].text;
+    img.src = game.image;
+    div.setAttribute('id', `img-${i}`)
+
+    items.append(div);
+    div.append(img);
+
+    div.classList.add('item');
+
+    if (i === 0) {
+        document.getElementById(`img-${currentImageId}`).classList.add('active')
+    }
+
+    if (document.getElementById(`img-${currentImageId}`).classList.contains('active')) {
+        h3.innerText = game.title;
+        p.innerText = game.text;
         div.append(h3);
         div.append(p);
-    })
+    }
 
 });
+
+
+const itemList = document.querySelectorAll('.item');
+
+prev.addEventListener('click', () => {
+
+    if (currentImageId > 0) {
+        itemList[currentImageId].classList.remove('active')
+        currentImageId--;
+        itemList[currentImageId].classList.add('active')
+
+    } else {
+        itemList[currentImageId].classList.remove('active')
+        currentImageId = itemList.length - 1;
+        itemList[currentImageId].classList.add('active')
+    }
+});
+
+next.addEventListener('click', () => {
+
+    if (currentImageId < itemList.length - 1) {
+        itemList[currentImageId].classList.remove('active')
+        currentImageId++;
+        itemList[currentImageId].classList.add('active')
+
+    } else {
+        itemList[currentImageId].classList.remove('active')
+        currentImageId = 0;
+        itemList[currentImageId].classList.add('active')
+    }
+});
+
+
