@@ -68,6 +68,7 @@ images.forEach((_, i) => {
 
     img.src = game.image;
     div.classList.add('thumb');
+    div.dataset.index = i;
     thumbs.append(div);
     div.append(img);
 
@@ -117,8 +118,17 @@ next.addEventListener('click', () => {
     }
 });
 
-thumbs.addEventListener('click', e => {
-    console.log(e.target);
+thumbs.addEventListener('click', function (event) {
+    if (event.target.parentElement.classList.contains('thumb')) {
+
+        itemList[currentImageId].classList.remove('active')
+        thumbList[currentImageId].classList.remove('active')
+
+        currentImageId = parseInt(event.target.parentElement.dataset.index);
+
+        itemList[currentImageId].classList.add('active')
+        thumbList[currentImageId].classList.add('active')
+    }
 })
 
 
